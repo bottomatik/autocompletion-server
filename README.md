@@ -14,12 +14,16 @@ All requests are performed using `Content-Type: application/json` .
 
 ### `POST` `/:id`
 
-Requires autocompletion data.
+Requires autocompletion data for system with id `id`.
 
 | Parameters | Required | Type |Description |
 |:----------:|:--------:|:----:|:----------:|
 | `query` | `true` | String | The query. Example: `What is my` |
 
+
+### `GET` `/:id/full`
+
+Requires all data from system. No parameters.
 
 ### `POST` `/new/:id`
 

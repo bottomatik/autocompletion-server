@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const Systems = require('./lib/systems');
 const Autocomplete = require('./lib/autocomplete');
 
-app.get('/', function (req, res, err){
+app.get('/', function (req, res, next){
 	return res.status(400).json({
 		error:{
 			message: 'System needed'
@@ -21,7 +21,7 @@ app.get('/', function (req, res, err){
 	});
 });
 
-app.post('/:id', function(req, res, err){
+app.post('/:id', function(req, res, next){
 	if(!req.body.query){
 		return res.status(400).error({error:{message:'Query required in body'}});
 	}
@@ -32,6 +32,16 @@ app.post('/:id', function(req, res, err){
 			return res.status(404).json({error:{message:'System does not exist'}});
 		}
 		return res.json(Autocomplete.get(req.body.query, system));
+	} catch(err) {
+		console.error(err);
+		return res.status(500).json({error:{message:err.message}});	
+	}
+});
+
+app.get('/:id/full', function(req, res, next){
+	try{
+		let system = Systems.get(req.params.id);
+		return res.json(system);
 	} catch(err) {
 		console.error(err);
 		return res.status(500).json({error:{message:err.message}});	
