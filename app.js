@@ -23,7 +23,7 @@ app.get('/', function (req, res, next){
 
 app.post('/:id', function(req, res, next){
 	if(!req.body.query){
-		return res.status(400).error({error:{message:'Query required in body'}});
+		return res.status(400).json({error:{message:'Query required in body'}});
 	}
 
 	try{
@@ -50,7 +50,7 @@ app.get('/:id/full', function(req, res, next){
 
 app.post('/new/:id', function(req, res, next){
 	if(!req.body.data){
-		return res.status(400).error({error:{message:'Data required in body'}});
+		return res.status(400).json({error:{message:'Data required in body'}});
 	}
 
 	try{
